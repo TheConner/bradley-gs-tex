@@ -1,0 +1,88 @@
+% bradley-gs styles 
+% Conner Bradley, 2021
+
+%%% PARSE OPTIONS %%%
+\RequirePackage{kvoptions}
+
+% Fancy header footer option, void
+\newif\iffancyhfoption
+\DeclareVoidOption{fancyhf}{
+  \fancyhfoptiontrue
+}
+
+\ProcessKeyvalOptions*
+%%% END PARSE OPTIONS %%%
+
+% Use a page size with 1in margins
+\RequirePackage[letterpaper, margin=1in]{geometry}
+
+% This is quite the controversial opinion, but computer modern kinda sucks
+% There are nicer fonts!
+% You will need texlive-utopia or related package for your distro
+%\RequirePackage{libertine}
+\RequirePackage[T1]{fontenc}
+
+% Since I don't really know the rgb value of every color
+\RequirePackage[dvipsnames]{xcolor}
+
+% For code listings (solarized theme)
+\RequirePackage{shellesc}
+\RequirePackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+  toprule=2pt,
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3}
+
+% Hypperref setup
+\RequirePackage[unicode, breaklinks=true]{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=purple,
+    urlcolor=blue,
+    citecolor=purple,
+}
+\urlstyle{same}
+
+% Graphics, figures
+\RequirePackage{graphicx}
+
+
+
+%%% OPTIONAL STUFF %%%
+\iffancyhfoption
+    \RequirePackage{fancyhdr}
+    \pagestyle{fancy}
+\fi
