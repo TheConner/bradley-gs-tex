@@ -1,10 +1,13 @@
 % bradley-gs styles 
 % Conner Bradley, 2021
+% This package won't amount to much. Feel free to hack on it if you wish :)
 
 \RequirePackage{etoolbox}
 
 %%% PARSE OPTIONS %%%
 \RequirePackage{kvoptions}
+
+% KV Options are scoped with bgs@ prefix
 \SetupKeyvalOptions{family=bgs,prefix=bgs@}
 
 
@@ -14,10 +17,22 @@
   \fancyhfoptiontrue
 }
 
+%
+% Author option defines the author used in headings and titles this does NOT 
+% use latex's default \author macro. Rather, this autho macro is scoped to 
+% this package
+%
 \DeclareStringOption{author}
-\DeclareStringOption{course}
-\DeclareStringOption{task}
 
+%
+% Course name to be used in the left header
+%
+\DeclareStringOption{course}
+
+%
+% Task name to be used in the left header
+%
+\DeclareStringOption{task}
 
 \ProcessKeyvalOptions*
 
@@ -94,11 +109,12 @@
 \iffancyhfoption
     \RequirePackage{fancyhdr}
     \RequirePackage{lastpage}
+
     \pagestyle{fancy}
     \fancyhead{}
     \fancyfoot{}
-    %% -- SET HEADER OPTIONS HERE --
-    \lhead{\bgs@course}
+
+    \lhead{\bgs@course\,\bgs@task}
     \rhead{\bgs@author}
     \renewcommand{\headrulewidth}{1.0pt}
     \renewcommand{\footrulewidth}{1.0pt}
