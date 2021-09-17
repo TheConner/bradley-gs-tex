@@ -1,8 +1,12 @@
 % bradley-gs styles 
 % Conner Bradley, 2021
 
+\RequirePackage{etoolbox}
+
 %%% PARSE OPTIONS %%%
 \RequirePackage{kvoptions}
+\SetupKeyvalOptions{family=bgs,prefix=bgs@}
+
 
 % Fancy header footer option, void
 \newif\iffancyhfoption
@@ -10,7 +14,13 @@
   \fancyhfoptiontrue
 }
 
+\DeclareStringOption{author}
+\DeclareStringOption{course}
+\DeclareStringOption{task}
+
+
 \ProcessKeyvalOptions*
+
 %%% END PARSE OPTIONS %%%
 
 % Use a page size with 1in margins
@@ -80,9 +90,17 @@
 \RequirePackage{graphicx}
 
 
-
 %%% OPTIONAL STUFF %%%
 \iffancyhfoption
     \RequirePackage{fancyhdr}
+    \RequirePackage{lastpage}
     \pagestyle{fancy}
+    \fancyhead{}
+    \fancyfoot{}
+    %% -- SET HEADER OPTIONS HERE --
+    \lhead{\bgs@course}
+    \rhead{\bgs@author}
+    \renewcommand{\headrulewidth}{1.0pt}
+    \renewcommand{\footrulewidth}{1.0pt}
+    \cfoot{\textbf{\thepage\ of \pageref*{LastPage}}}
 \fi
