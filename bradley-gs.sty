@@ -25,6 +25,11 @@
 \DeclareStringOption{author}
 
 %
+% Identifier to be included with the author on the titlepage
+%
+\DeclareStringOption{authorid}
+
+%
 % Course name to be used in the left header
 %
 \DeclareStringOption{course}
@@ -33,6 +38,11 @@
 % Task name to be used in the left header
 %
 \DeclareStringOption{task}
+
+%
+% Date to show on the title page
+%
+\DeclareStringOption{date}
 
 \ProcessKeyvalOptions*
 
@@ -126,3 +136,22 @@
 \else
     \pagenumbering{gobble}
 \fi
+
+%------------------------------------------------------------------------------
+%                                   TITLE PAGE
+%------------------------------------------------------------------------------
+\newcommand{\bgstitlepage}{%
+  \begin{titlepage}% Suppresses displaying the page number on the title page and the subsequent page counts as page 1
+    \raggedleft% Right align the title page
+    \rule{1pt}{\textheight}% Vertical line
+    \hspace{0.05\textwidth}% Whitespace between the vertical line and title page text
+    \parbox[b]{0.75\textwidth}{% Paragraph box for holding the title page text, adjust the width to move the title page left or right on the page
+            {\Huge\bfseries \bgs@task}\\[2\baselineskip]% Title
+            {\large\textit{\bgs@course}}\\[4\baselineskip]% Subtitle or further description
+  {\Large\textsc{\bgs@author}}% Author name, lower case for consistent small caps
+  {\Large\texttt{\bgs@authorid}}\\%
+    \vspace{0.5\textheight}\\% Whitespace between the title block and the publisher
+    {\noindent \bgs@date}\\[\baselineskip]% Publisher and logo
+    }%
+  \end{titlepage}%
+}
